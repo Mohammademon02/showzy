@@ -42,7 +42,7 @@ export default function Home() {
       // User পুরো ad দেখেছে - reward দিন
       const reward = 10; // প্রতি ad এ 10 coins
       setCoins(coins + reward);
-      setMessage(`🎉 আপনি ${reward} coins পেয়েছেন!`);
+      setMessage(`🎉 আপনি ${reward} Coins পেয়েছেন!`);
     } else if (result.success && !result.rewarded) {
       // User ad skip করেছে
       setMessage('❌ Ad skip করা হয়েছে। Reward পাবেন না।');
