@@ -1,37 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-// import WebApp from "@twa-dev/sdk";
 
+import { useEffect } from "react";
 
-
-export default function Home() {
-  const [ads, setAds] = useState([]);
-
+export default function HomePage() {
   useEffect(() => {
-    const fetchAds = async () => {
-      const snap = await getDocs(collection(db, "ads"));
-      setAds(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    };
-    fetchAds();
+    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready(); // ✅ Let Telegram know the app is ready
+      tg.expand(); // ✅ Expand app to full height
+      console.log("✅ Telegram initialized:", tg.initDataUnsafe);
+    } else {
+      console.log("⚠️ Not inside Telegram");
+    }
   }, []);
 
-  // useEffect(() => {
-  //   WebApp.ready();
-  //   const user = WebApp.initDataUnsafe?.user;
-  //   console.log("Telegram User:", user);
-  // }, []);
-
   return (
-    <main className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {ads.map((ad) => (
-        <div key={ad.id} className="border rounded-xl p-3 shadow">
-          <img src={ad.image} alt={ad.title} className="rounded-lg mb-2" />
-          <h2 className="font-semibold">{ad.title}</h2>
-          <p className="text-sm text-gray-600">{ad.description}</p>
-        </div>
-      ))}
-    </main>
+    <div className="p-6 text-center">
+      <h1 className="text-2xl font-bold">Showzy Ads</h1>
+      <p>Welcome to your Telegram Mini App 🎉</p>
+    </div>
   );
 }
